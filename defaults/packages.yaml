@@ -1,6 +1,8 @@
 packages:
   perl:
     version: [5.32.1]
+  python:
+    version: [3.8.9]
   berkeley-db:
     version: [18.1.40]
   gdbm:
@@ -11,6 +13,7 @@ packages:
     version: [6.2]
   petsc:
     version: [3.15.0]
+    variants: +fftw
   mpich:
     version: [3.3.2]
   openmpi:
@@ -24,22 +27,48 @@ packages:
   binutils:
     version: [2.34]
   boost:
-    version: [1.68.0]
+    version: [1.75.0]
   cmake:
     version: [3.20.1]
   emacs:
     variants: +tls
   fftw:
-    variants: +fma
+    version: [3.3.9]
   hdf5:
-    variants: ~cxx~debug~fortran+hl~java+mpi+pic+shared~szip~threadsafe
+    variants: ~cxx~debug~fortran+hl~java+mpi+pic+shared~szip+threadsafe
     version: [1.12.0]
   netcdf-c:
     version: [4.7.4]
   netcdf-cxx4:
     version: [4.3.1]
+  netcdf-cxx:
+    version: [4.2]
   netcdf-fortran:
     version: [4.5.3]
+  parallel-netcdf:
+    version: [1.12.1]
+  parallelio:
+    version: [2_5_2]
+  muparser:
+    version: [2.2.6.1]
+  maven:
+    version: [3.6.3]
+  memsurfer:
+    version: [1.0]
+  swig:
+    version: [4.0.2]
+  cgal:
+    version: [5.0.3]
+  gdal:
+    version: [3.2.2]
+  eigen:
+    version: [3.3.9]
+  cdo:
+    version: [1.9.10]
+  vtk:
+    version: [9.0.0]
+  dealii:
+    version: [9.2.0]
   all:
     compiler: [gcc@10.1.0, intel@19.0.0.117]
     variants: build_type=Release +mpi
@@ -57,10 +86,9 @@ packages:
       glx: [osmesa+glx]
       golang: [gcc]
       iconv: [libiconv]
-      java: [openjdk, jdk, ibm-java]
+      java: [openjdk]
       jpeg: [libjpeg-turbo]
       lapack: [openblas]
-      mpi: [openmpi, mpich]
       pil: [py-pillow]
       pkgconfig: [pkg-config]
       rpc: [libtirpc]
