@@ -72,4 +72,4 @@ packages:
       uuid: [libuuid]
     permissions:
       read: world
-      write: group
+      write: user
