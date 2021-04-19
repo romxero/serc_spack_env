@@ -48,8 +48,8 @@ cp defaults/packages.yaml spack/etc/spack/defaults/packages.yaml
 source spack/share/spack/setup-env.sh
 
 #install compilers
-spack install -j${CORECOUNT} gcc@10.1.0 target=${ARCH}
-spack install -j${CORECOUNT} intel-oneapi-compilers@2021.2.0 target=${ARCH}
+spack install -j${CORECOUNT} gcc@10.1.0%gcc@4.8.5 target=${ARCH}
+spack install -j${CORECOUNT} intel-oneapi-compilers@2021.2.0%gcc@4.8.5 target=${ARCH}
 
 #now add the compilers - gcc
 spack load gcc@10.1.0
