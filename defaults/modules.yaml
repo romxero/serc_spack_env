@@ -9,5 +9,5 @@ modules:
       - 'compiler'
     hash_length: 0
     projections:
-      all:          '{name}/{version}'
-      ^mpi:      '{name}/{^mpi.name}-{version}'
+      all:          '{name}-cees/{version}'
+      ^mpi:      '{name}-cees/{^mpi.name}-{version}'
