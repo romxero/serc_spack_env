@@ -1,4 +1,16 @@
 #!/bin/bash
+#SBATCH --job-name=SpackBuilds
+#SBATCH --output=SpackBuilds_%A_%a.out
+#SBATCH --error=SpackBuilds_%A_%a.err
+#SBATCH --time=1-00:00:00
+#SBATCH --ntasks=1 # how to scale the following to multiple tasks?
+#SBATCH --cpus-per-task=8
+#SBATCH --mem-per-cpu=2G
+#SBATCH -p serc,normal
+##SBATCH -C CPU_MNF:INTEL
+
+
+
 # This is the general install script for SERC on the Sherlock HPC system @ Stanford.
 # 
 #
@@ -7,7 +19,7 @@
 
 
 #global variables
-CORECOUNT=16 #main core count for compiling jobs
+CORECOUNT=8 #main core count for compiling jobs
 ARCH="x86_64" #this is the main target, select either x86_64, zen2, or skylake_avx512
 
 #the compilers we will need.
@@ -52,28 +64,14 @@ spack install -j${CORECOUNT} gcc@10.1.0%gcc@4.8.5 target=${ARCH}
 spack install -j${CORECOUNT} intel-oneapi-compilers@2021.2.0%gcc@4.8.5 target=${ARCH}
 
 #now add the compilers - gcc
-spack load gcc@10.1.0
-spack compiler find
-spack compiler add
+spack compiler find `spack location --install-dir gcc@10.1.0`
+spack compiler find `spack location --install-dir gcc@10.1.0`/bin
 
-#redundant add:
-GCC_PATH=`spack location --install-dir gcc@10.1.0`
-export PATH=$PATH:${GCC_PATH}/bin
-spack compiler find
-spack compiler add
 
 #icc
-spack load intel-oneapi-compilers@2021.2.0
-spack compiler find
-spack compiler add
+spack compiler find `spack location --install-dir  intel-oneapi-compilers`/compiler/2021.2.0/linux/bin
+spack compiler find `spack location --install-dir  intel-oneapi-compilers`/compiler/2021.2.0/linux/bin/intel64
 
-#redundant add:
-#ICC_PATH=`spack location --install-dir intel-oneapi-compilers@2021.2.0`
-#export PATH=$PATH:${ICC_PATH}/bin
-#sorry heuristics approach...
-export PATH=$PATH:`spack location --install-dir  intel-oneapi-compilers`/compiler/2021.2.0/linux/bin/intel64:`spack location --install-dir  intel-oneapi-compilers`/compiler/2021.2.0/linux/bin
-spack compiler find
-spack compiler add
 
 
 
