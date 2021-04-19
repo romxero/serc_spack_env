@@ -35,7 +35,7 @@ packages:
   fftw:
     version: [3.3.9]
   hdf5:
-    variants: ~cxx~debug~fortran+hl~java+mpi+pic+shared~szip+threadsafe
+    variants: ~cxx~debug+fortran+hl~java+mpi+pic+shared~szip+threadsafe
     version: [1.12.0]
   netcdf-c:
     version: [4.7.4]
@@ -69,6 +69,8 @@ packages:
     version: [9.0.0]
   dealii:
     version: [9.2.0]
+  intel-oneapi-compilers:
+    version: [2021.2.0]
   all:
     compiler: [gcc@10.1.0, intel@19.0.0.117]
     variants: build_type=Release +mpi
