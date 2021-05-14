@@ -107,3 +107,12 @@ done
 
 
 #################END_OF_SOFTWARE_INSTALLS####################################
+
+
+#have spack regenerate module files:
+
+spack module lmod refresh --delete-tree -y
+
+
+exit 0
+
