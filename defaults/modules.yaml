@@ -4,6 +4,8 @@ modules:
       - PATH
     lib:
       - LIBRARY_PATH
+    include:
+      - CPATH
   enable::
     - lmod
   lmod:
