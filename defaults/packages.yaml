@@ -13,7 +13,7 @@ packages:
     version: [6.2]
   petsc:
     version: [3.15.0]
-    variants: +fftw
+    variants: +hypre+fftw+mumps+hdf5
   mpich:
     version: [3.3.2]
   openmpi:
