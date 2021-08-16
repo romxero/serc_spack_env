@@ -72,6 +72,10 @@ packages:
     version: [9.2.0]
   intel-oneapi-compilers:
     version: [2021.2.0]
+  blitz:
+    version: [1.0.2]
+  xios:
+    version: [2.5]
   all:
     compiler: [gcc@10.1.0, intel@19.0.0.117]
     variants: build_type=Release +mpi
