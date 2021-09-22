@@ -2,7 +2,7 @@ packages:
   perl:
     version: [5.32.1]
   python:
-    version: [3.8.9]
+    version: [3.8.11]
   berkeley-db:
     version: [18.1.40]
   gdbm:
@@ -18,7 +18,7 @@ packages:
     version: [3.3.2]
   openmpi:
     variants: +pmi +legacylaunchers schedulers=slurm fabrics=ucx,ofi
-    version: [4.0.5]
+    version: [4.1.1]
   proj:
     version: [7.2.1]
   geos:
@@ -76,6 +76,10 @@ packages:
     version: [1.0.2]
   xios:
     version: [2.5]
+  libxsmm:
+    version: [1.16.1]
+  parmetis:
+    version: [4.0.3]
   all:
     compiler: [gcc@10.1.0, intel@19.0.0.117]
     variants: build_type=Release +mpi
