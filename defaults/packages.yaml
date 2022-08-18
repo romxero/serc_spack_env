@@ -1,90 +1,135 @@
 packages:
-  perl:
-    version: [5.32.1]
+  py-pip:
+    version: [22.1.2]
   python:
-    version: [3.8.11]
-  berkeley-db:
-    version: [18.1.40]
-  gdbm:
-    version: [1.18.1]
-  readline:
-    version: [8.1]
-  ncurses:
-    version: [6.2]
-  petsc:
-    version: [3.15.0]
-    variants: +hypre+fftw+mumps+hdf5
-  mpich:
-    version: [3.3.2]
-  openmpi:
-    variants: +pmi +legacylaunchers schedulers=slurm fabrics=ucx,ofi
-    version: [4.1.1]
-  proj:
-    version: [7.2.1]
-  geos:
-    version: [3.8.1]
-  ascent:
-    variants: +python
-  binutils:
-    version: [2.34]
+    version: [3.9.0]
+  sundials:
+    version: [6.2.0]
+  cantera:
+    variants: ~matlab
+    version: [2.5.1]
+  eigen:
+    version: [3.4.0]
   boost:
-    version: [1.75.0]
-  cmake:
-    version: [3.20.1]
-  emacs:
-    variants: +tls
-  fftw:
-    version: [3.3.9]
+    version: [1.79.0]
   hdf5:
     variants: ~cxx~debug+fortran+hl~java+mpi+pic+shared~szip+threadsafe
     version: [1.12.0]
-  netcdf-c:
-    version: [4.7.4]
-  netcdf-cxx4:
-    version: [4.3.1]
-  netcdf-cxx:
-    version: [4.2]
-  netcdf-fortran:
-    version: [4.5.3]
-  parallel-netcdf:
-    version: [1.12.1]
-  parallelio:
-    version: [2_5_2]
-  muparser:
-    version: [2.2.6.1]
-  maven:
-    version: [3.6.3]
-  memsurfer:
-    version: [1.0]
-  swig:
-    version: [4.0.2]
-  cgal:
-    version: [5.0.3]
-  gdal:
-    version: [3.2.2]
-  eigen:
-    version: [3.3.9]
-  cdo:
-    version: [1.9.10]
-  vtk:
-    version: [9.0.0]
-  dealii:
-    version: [9.2.0]
-  intel-oneapi-compilers:
-    version: [2021.2.0]
-  blitz:
-    version: [1.0.2]
-  xios:
-    version: [2.5]
-  libxsmm:
-    version: [1.16.1]
+  perl:
+    version: [5.32.1]
+  berkeley-db:
+    version: [18.1.40]
   parmetis:
     version: [4.0.3]
+  openssl:
+    externals:
+    - spec: openssl@3.0.2
+      prefix: /share/software/user/open/openssl/3.0.2
+    - spec: openssl@1.0.2k-fips
+      prefix: /usr
+  curl:
+    externals:
+    - spec: curl@7.81.0+gssapi
+      prefix: /share/software/user/open/curl/7.81.0
+  cmake:
+    externals:
+    - spec: cmake@3.23.1
+      prefix: /share/software/user/open/cmake/3.23.1
+  sqlite:
+    externals:
+    - spec: sqlite@3.37.2+fts~functions+rtree
+      prefix: /share/software/user/open/sqlite/3.37.2
+  gcc:
+    externals:
+    - spec: gcc@10.1.0 languages=c,c++,fortran
+      prefix: /share/software/user/open/gcc/10.1.0
+      extra_attributes:
+        compilers:
+          c: /share/software/user/open/gcc/10.1.0/bin/gccgo
+          cxx: /share/software/user/open/gcc/10.1.0/bin/g++
+          fortran: /share/software/user/open/gcc/10.1.0/bin/gfortran
+  go:
+    externals:
+    - spec: go@1.14.2
+      prefix: /share/software/user/open/gcc/10.1.0
+  openmpi:
+    externals:
+    - spec: openmpi@4.1.2%gcc@10.1.0+cuda~cxx~cxx_exceptions~java~memchecker+pmi~static~wrapper-rpath
+        fabrics=ofi,ucx schedulers=slurm
+      prefix: /share/software/user/open/openmpi/4.1.2
+  findutils:
+    externals:
+    - spec: findutils@4.5.11
+      prefix: /usr
+  flex:
+    externals:
+    - spec: flex@2.5.37+lex
+      prefix: /usr
+  gmake:
+    externals:
+    - spec: gmake@3.82
+      prefix: /usr
+  autoconf:
+    externals:
+    - spec: autoconf@2.69
+      prefix: /usr
+  tar:
+    externals:
+    - spec: tar@1.26
+      prefix: /usr
+  libtool:
+    externals:
+    - spec: libtool@2.4.2
+      prefix: /usr
+  gawk:
+    externals:
+    - spec: gawk@4.0.2
+      prefix: /usr
+  binutils:
+    externals:
+    - spec: binutils@2.27.44
+      prefix: /usr
+  openssh:
+    externals:
+    - spec: openssh@7.4p1
+      prefix: /usr
+  git:
+    externals:
+    - spec: git@1.8.3.1~tcltk
+      prefix: /usr
+  automake:
+    externals:
+    - spec: automake@1.13.4
+      prefix: /usr
+  m4:
+    externals:
+    - spec: m4@1.4.16
+      prefix: /usr
+  diffutils:
+    externals:
+    - spec: diffutils@3.3
+      prefix: /usr
+  groff:
+    externals:
+    - spec: groff@1.22.2
+      prefix: /usr
+  pkg-config:
+    externals:
+    - spec: pkg-config@0.27.1
+      prefix: /usr
+  texinfo:
+    externals:
+    - spec: texinfo@5.1
+      prefix: /usr
+  bison:
+    externals:
+    - spec: bison@3.0.4
+      prefix: /usr
   all:
-    compiler: [gcc@10.1.0, intel@19.0.0.117]
+    compiler: [gcc@10.1.0]
     variants: build_type=Release +mpi
     providers:
-      mpi: [openmpi, mpich]
+      mpi: [openmpi]
       blas: [openblas]
       lapack: [openblas]
       gl: [osmesa+opengl]
