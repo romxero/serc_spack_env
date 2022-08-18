@@ -7,44 +7,31 @@
 #SBATCH --cpus-per-task=8
 #SBATCH --mem-per-cpu=2G
 #SBATCH -p serc,normal
-##SBATCH -C CPU_MNF:INTEL
 
-
-
-# This is the general install script for SERC on the Sherlock HPC system @ Stanford.
-# 
 #
 #
 #set -x #debug
-
-
 #global variables
 CORECOUNT=8 #main core count for compiling jobs
-ARCH="x86_64" #this is the main target, select either x86_64, zen2, or skylake_avx512
 
-#the compilers we will need.
-compilers=(
-    %gcc@10.1.0
-    %intel@2021.2.0
-)
+echo "This is the current directory we are working on : $PWD"
 
-mpis=(
-    openmpi
-    mpich
-)
+#make the build directory
+mkdir -p charlesxBuild
 
+#change directories
+cd charlesxBuild
+
+#purge the modules first
+ml purge
 
 
+#load these defacto modules
+ml load cmake/3.23.1 gcc/10.1.0 openmpi/4.1.2 
 
-#This is the ccache stuff commented out its really for testing and debugging.
-#spack install -j${CORECOUNT} ccache
-#now put ccache in the path
-#CCACHE_PATH=`spack location --install-dir ccache`
-#export PATH=$PATH:${CCACHE_PATH}/bin
+#clone spack
+git clone -c feature.manyFiles=true https://github.com/spack/spack.git
 
-
-#clone the spack repo into this current directory
-git clone https://github.com/spack/spack.git
 
 
 #backup old yaml files
@@ -59,54 +46,36 @@ cp defaults/packages.yaml spack/etc/spack/defaults/packages.yaml
 #source the spack environment
 source spack/share/spack/setup-env.sh
 
-#install compilers 
-#fix was added due to zen2 not having optimizations w/ 4.8.5 compiler
-spack install -j${CORECOUNT} gcc@10.1.0%gcc@4.8.5 target=x86_64
-spack install -j${CORECOUNT} intel-oneapi-compilers@2021.2.0%gcc@4.8.5 target=x86_64
-
-#now add the compilers - gcc
-spack compiler find `spack location --install-dir gcc@10.1.0`
-spack compiler find `spack location --install-dir gcc@10.1.0`/bin
 
 
-#icc
-spack compiler find `spack location --install-dir  intel-oneapi-compilers`/compiler/2021.2.0/linux/bin
-spack compiler find `spack location --install-dir  intel-oneapi-compilers`/compiler/2021.2.0/linux/bin/intel64
+#find the external libraries
+#spack external find --all -p /share/software/user/open/icu/59.1
+#spack external find --all -p /share/software/user/open/openmpi/4.1.2
+#spack external find --all -p /share/software/user/open/libfabric/1.14.0
+#spack external find --all -p /share/software/user/open/ucx/1.12.1
+#spack external find --all -p /share/software/user/open/gcc/10.1.0
+#spack external find --all -p /share/software/user/open/sqlite/3.37.2
+#spack external find --all -p /share/software/user/open/tcltk/8.6.6
+#spack external find --all -p /share/software/user/open/libressl/3.2.1
+#spack external find --all -p /share/software/user/open/cmake/3.23.1
+#spack external find --all -p /share/software/user/open/curl/7.81.0
+#spack external find --all -p /share/software/user/open/openssl/3.0.2
+#spack external find --all -p /share/software/user/open/libffi/3.2.1
+#spack external find --all -p /share/software/user/open/readline/7.0
+#spack external find --all -p /share/software/user/open/zlib/1.2.11
+
+#redundant, but make sure the compiler is on file
+spack compiler find /share/software/user/open/gcc/10.1.0
+
+
+#############SOFTWARE/LIBRARY INSTALLS########################
+
+#time to install dependencies
+spack install sundials hdf5 boost eigen cantera parmetis
 
 
 
-
-
-#############SOFTWARE INSTALL########################
-
-for compiler in "${compilers[@]}"
-do
-    # Serial installs
-    spack install -j${CORECOUNT} proj $compiler target=${ARCH}
-    spack install -j${CORECOUNT} swig $compiler target=${ARCH}
-    spack install -j${CORECOUNT} maven $compiler target=${ARCH}
-    spack install -j${CORECOUNT} geos $compiler target=${ARCH}
-
-    # Parallel installs
-    for mpi in "${mpis[@]}"
-    do
-        spack install -j${CORECOUNT} $mpi $compiler target=${ARCH}
-        spack install -j${CORECOUNT} cdo  $compiler ^$mpi target=${ARCH}
-        spack install -j${CORECOUNT} parallel-netcdf $compiler ^$mpi target=${ARCH}
-        spack install -j${CORECOUNT} petsc $compiler ^$mpi target=${ARCH}
-		spack install -j${CORECOUNT} netcdf-fortran $compiler ^$mpi target=${ARCH}
-		spack install -j${CORECOUNT} netcdf-c $compiler ^$mpi target=${ARCH}
-		spack install -j${CORECOUNT} netcdf-cxx4 $compiler ^$mpi target=${ARCH}
-		spack install -j${CORECOUNT} hdf5 $compiler ^$mpi target=${ARCH}
-		spack install -j${CORECOUNT} fftw $compiler ^$mpi target=${ARCH}
-		spack install -j${CORECOUNT} parallelio $compiler ^$mpi target=${ARCH}
-		spack install -j${CORECOUNT} dealii $compiler ^$mpi target=${ARCH}
-		spack install -j${CORECOUNT} cgal $compiler ^$mpi target=${ARCH}
-    done
-done
-
-
-#################END_OF_SOFTWARE_INSTALLS####################################
+#################END_OF_SOFTWARE/LIBRARY_INSTALLS####################################
 
 
 #have spack regenerate module files:
@@ -115,4 +84,3 @@ spack module lmod refresh --delete-tree -y
 
 
 exit 0
-
