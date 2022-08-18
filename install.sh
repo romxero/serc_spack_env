@@ -27,7 +27,7 @@ ml purge
 
 
 #load these defacto modules
-ml load cmake/3.23.1 gcc/10.1.0 openmpi/4.1.2 
+ml load system devel cmake/3.23.1 gcc/10.1.0 openmpi/4.1.2 python/3.9.0
 
 #clone spack
 git clone -c feature.manyFiles=true https://github.com/spack/spack.git
