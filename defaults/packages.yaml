@@ -41,7 +41,7 @@ packages:
       prefix: /share/software/user/open/cmake/3.23.1
   sqlite:
     externals:
-    - spec: sqlite@3.37.2+fts~functions+rtree
+    - spec: sqlite@3.37.2
       prefix: /share/software/user/open/sqlite/3.37.2
   gcc:
     externals:
