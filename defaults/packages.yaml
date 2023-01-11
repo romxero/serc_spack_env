@@ -37,8 +37,8 @@ packages:
       prefix: /share/software/user/open/curl/7.81.0
   cmake:
     externals:
-    - spec: cmake@3.23.1
-      prefix: /share/software/user/open/cmake/3.23.1
+    - spec: cmake@3.24.2
+      prefix: /share/software/user/open/cmake/3.24.2
   sqlite:
     externals:
     - spec: sqlite@3.37.2
