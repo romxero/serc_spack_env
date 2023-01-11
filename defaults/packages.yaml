@@ -2,9 +2,7 @@ packages:
   py-pip:
     version: [22.1.2]
   python:
-    externals:
-    - spec: python@3.9.0
-      prefix: /share/software/user/open/python/3.9.0
+    version: [3.9.0]
   vtk:
     version: [9.2.2]
   sundials:
