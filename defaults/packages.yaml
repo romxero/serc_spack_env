@@ -6,7 +6,7 @@ packages:
   vtk:
     version: [9.2.2]
   fmt:
-    version: [9.1.0]
+    version: [3.0.2]
   sundials:
     version: [3.1.2]
   cantera:
